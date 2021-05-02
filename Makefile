@@ -23,3 +23,16 @@ initialize:
 # Command: make clean
 clean:
 	rm -rf *.o $(OBJ)/* $(EXE)/* 
+  
+CarbonHash: $(OBJ)/CarbonHash.o
+	$(PP) $(CXXFLAGS) -o $(EXE)/CarbonHash $^
+
+$(OBJ)/CarbonHash.o: $(SRC)/CarbonHash.cpp
+	$(PP) $(CXXFLAGS) -c $< -o $@
+
+WeatherHash: $(OBJ)/WeatherHash.o
+	$(PP) $(CXXFLAGS) -o $(EXE)/WeatherHash $^
+
+$(OBJ)/WeatherHash.o: $(SRC)/WeatherHash.cpp
+	$(PP) $(CXXFLAGS) -c $< -o $@
+
