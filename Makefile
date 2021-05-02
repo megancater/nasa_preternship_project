@@ -1,30 +1,43 @@
-# Author: Drew A. Curtin
-# Email: dcurtin@nd.edu
-# 
-# Pretern Project, Makefile for implemented data structures DLL and Array
+# Folder Variable Names
 
-## Basic Commands and Folders ##
+# Authors: Megan Cater, Drew Curtin, Mason Porter, Francesca Schena
+# E-mails: mcater@nd.eda, dcurtin@nd.edu, mporter5@nd.edu, fschena@nd.edu
+#
+# This is the Makefile for the NASA Preternship Project
 
-# G++ is for the GCC compiler for C++
+# Compilers and flags
 PP := g++
-
-# CXXFLAGS are the compiler flages for when we compile C++ code in this course 
 FLAGS := -O2 -g -Wall -Wextra -Wconversion -Wshadow -pedantic -Werror
 CXXFLAGS := -m64 -std=c++11 -Weffc++ $(FLAGS)
 
-# Folder Variable Names
+# Folders
 INC := inc
 SRC := src
 OBJ := obj
 EXE := exe
 
-# Initialize
+# Command: make algorithm
+
+# Command: make initialize
 initialize:
 	mkdir $(OBJ) $(EXE)
-	
-# Clean
+
+# Command: make clean
 clean:
-	rm -rf $(OBJ)/* $(EXE)/*
+	rm -rf *.o $(OBJ)/* $(EXE)/* 
+  
+CarbonHash: $(OBJ)/CarbonHash.o
+	$(PP) $(CXXFLAGS) -o $(EXE)/CarbonHash $^
+
+$(OBJ)/CarbonHash.o: $(SRC)/CarbonHash.cpp
+	$(PP) $(CXXFLAGS) -c $< -o $@
+
+WeatherHash: $(OBJ)/WeatherHash.o
+	$(PP) $(CXXFLAGS) -o $(EXE)/WeatherHash $^
+
+$(OBJ)/WeatherHash.o: $(SRC)/WeatherHash.cpp
+	$(PP) $(CXXFLAGS) -c $< -o $@
+
 
 ## Makefile with DLLNode Class ##
 # Command: make DLLnode_test
