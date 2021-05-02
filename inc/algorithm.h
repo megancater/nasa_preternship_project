@@ -6,6 +6,7 @@
 #include <vector>
 #include <cstdlib>
 #include <string>
+#include <map>
 
 #include "DLL.h"
 #include "Hash_Table.h"
@@ -33,12 +34,14 @@ int insert_data(STRING& text_file, bool isconstant, int data_structure, const lo
 int count_data(STRING& text_file);
 
 /* Switches to a more optimal data structure */
-void switch_data_structure(int current_data_structure);
+void switch_data_structure(int current_data_structure, unsigned int num_data_structures, int count, const unsigned int memorydata, bool isConstant, STRING& txt_File );
 
-/* Checks if number of duplicates in the text file exceeds the duplicate threshold */
-int run_duplicate_check(OFSTREAM& stream, int duplicate_threshold);
+void checkValid(Array<bool> ValidDSArray);
 
-/* Determines the total amount of memory the data structure will take up */
-long unsigned int determine_total_memory(int count, int data_structure);
+/* Determines the overall memory taken up by the data structure with points loaded in */
+long unsigned int determine_total_memory(int count, int data_structure, int number_buckets);
+
+/* Determines the number of duplicates from data in text file */
+int duplicate_count(std::ifstream &infile);
 
 #endif
