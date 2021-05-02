@@ -1,3 +1,5 @@
+# Folder Variable Names
+
 # Authors: Megan Cater, Drew Curtin, Mason Porter, Francesca Schena
 # E-mails: mcater@nd.eda, dcurtin@nd.edu, mporter5@nd.edu, fschena@nd.edu
 #
@@ -5,7 +7,7 @@
 
 # Compilers and flags
 PP := g++
-FLAGS := -O0 -g -Wall -Wextra -Wconversion -Wshadow -pedantic -Werror
+FLAGS := -O2 -g -Wall -Wextra -Wconversion -Wshadow -pedantic -Werror
 CXXFLAGS := -m64 -std=c++11 -Weffc++ $(FLAGS)
 
 # Folders
@@ -36,3 +38,31 @@ WeatherHash: $(OBJ)/WeatherHash.o
 $(OBJ)/WeatherHash.o: $(SRC)/WeatherHash.cpp
 	$(PP) $(CXXFLAGS) -c $< -o $@
 
+
+## Makefile with DLLNode Class ##
+# Command: make DLLnode_test
+
+# Initial DLLNode_test
+$(OBJ)/DLLNode_test.o: $(SRC)/DLLNode_test.cpp
+	$(PP) $(CXXFLAGS) -c $(SRC)/DLLNode_test.cpp -o $@
+	
+# Object List
+DLLNode_test_objs := $(OBJ)/DLLNode_test.o 
+
+# Executable
+DLLNode_test: $(DLLNode_test_objs)
+	$(PP) $(CXXFLAGS) -o $(EXE)/DLLNode_test $(DLLNode_test_objs)
+
+## Makefile with DLL Class ##
+# Command: make DLL_test
+
+# Initial DLL_test
+$(OBJ)/DLL_test.o: $(SRC)/DLL_test.cpp
+	$(PP) $(CXXFLAGS) -c $(SRC)/DLL_test.cpp -o $@
+	
+# Object List
+DLL_test_objs := $(OBJ)/DLL_test.o 
+
+# Executable
+DLL_test: $(DLL_test_objs)
+	$(PP) $(CXXFLAGS) -o $(EXE)/DLL_test $(DLL_test_objs)
