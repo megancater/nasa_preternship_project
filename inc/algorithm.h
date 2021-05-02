@@ -10,6 +10,7 @@
 
 #include "DLL.h"
 #include "Hash_Table.h"
+#include "Array.h"
 
 #define IFSTREAM std::ifstream
 #define OSTREAM std::ostream

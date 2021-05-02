@@ -1,10 +1,14 @@
 #include "../inc/algorithm.h"
 
+// CREATE OBJECT
+
 /* Inserts data from text file stream into specified text file
  * Returns true if data was entered successfully and false if memory threshold is exceeded */
 int insert_data(STRING& text_file, bool isconstant, int data_structure, const long unsigned int memorydata) {
 	// Opens text file and creates input stream
-	IFSTREAM input (text_file);
+	IFSTREAM input;
+	
+	input.open(text_file, IFSTREAM);
 
 	// Checks that the file has opened successfully before entering data
 	if (input.is_open()) {
