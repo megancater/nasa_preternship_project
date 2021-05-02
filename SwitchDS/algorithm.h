@@ -18,7 +18,7 @@ enum DS { dllist, array, hashmap};
 bool insert_data(OFSTREAM& stream, bool isconstant, int data_structure, const long unsigned int memorydata);
 
 /* Switches to a more optimal data structure */
-void switch_data_structure(int current_data_structure, unsigned int num_data_structures, int count, const unsigned int memorydata, bool isConstant, STRING& );
+void switch_data_structure(int current_data_structure, unsigned int num_data_structures, int count, const unsigned int memorydata, bool isConstant, STRING& theFile );
 
 void checkValid(Array<bool> ValidDSArray);
 
