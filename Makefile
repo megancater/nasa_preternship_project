@@ -53,16 +53,15 @@ DLLNode_test_objs := $(OBJ)/DLLNode_test.o
 DLLNode_test: $(DLLNode_test_objs)
 	$(PP) $(CXXFLAGS) -o $(EXE)/DLLNode_test $(DLLNode_test_objs)
 
-## Makefile with DLL Class ##
-# Command: make DLL_test
 
-# Initial DLL_test
-$(OBJ)/DLL_test.o: $(SRC)/DLL_test.cpp
-	$(PP) $(CXXFLAGS) -c $(SRC)/DLL_test.cpp -o $@
+## Compile the Algorithm
+# Initial Algorithm
+$(OBJ)/algorithm.o: $(SRC)/algorithm.cpp
+	$(PP) $(CXXFLAGS) -c $(SRC)/algorithm.cpp -o $@
 	
 # Object List
-DLL_test_objs := $(OBJ)/DLL_test.o 
+algorithm_test_objs := $(OBJ)/algorithm.o 
 
 # Executable
-DLL_test: $(DLL_test_objs)
-	$(PP) $(CXXFLAGS) -o $(EXE)/DLL_test $(DLL_test_objs)
+algorithm_test: $(algorithm_test_objs)
+	$(PP) $(CXXFLAGS) -o $(EXE)/algorithm_test $(algorithm_test_objs)
