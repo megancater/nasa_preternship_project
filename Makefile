@@ -66,3 +66,15 @@ DLL_test_objs := $(OBJ)/DLL_test.o
 # Executable
 DLL_test: $(DLL_test_objs)
 	$(PP) $(CXXFLAGS) -o $(EXE)/DLL_test $(DLL_test_objs)
+	
+## Compile the Algorithm
+# Initial Algorithm
+$(OBJ)/algorithm.o: $(SRC)/algorithm.cpp
+	$(PP) $(CXXFLAGS) -c $(SRC)/algorithm.cpp -o $@
+	
+# Object List
+algorithm_test_objs := $(OBJ)/algorithm.o 
+
+# Executable
+algorithm_test: $(algorithm_test_objs)
+	$(PP) $(CXXFLAGS) -o $(EXE)/algorithm_test $(algorithm_test_objs)
