@@ -1,7 +1,7 @@
 #include "../inc/algorithm.h"
 
 /* Inserts data from text file stream into specified text file
- * Returns true if data was entered successfully and false if memory threshold is exceeded */
+ * Returns success, failure, or switch status */
 int insert_data(STRING& text_file, bool isconstant, int data_structure, const long unsigned int memorydata) {
 	// Opens text file and creates input stream
 	IFSTREAM input (text_file);
@@ -12,9 +12,9 @@ int insert_data(STRING& text_file, bool isconstant, int data_structure, const lo
 		int count = 0;
 
 		// Data structure objects
-		DLL dll;
-		float arr[count_data(text_file)];
-		HashTable hash;
+		DLL<float> dll;
+		float *arr = new float[count_data(text_file)];
+		HashTable<float, int> hash;
 
 		// Reads data until EOF is reached or until the end is signalled
 		while ((isconstant  || (!isconstant && !end_signal)) && GETLINE(input, line)) {
@@ -23,7 +23,7 @@ int insert_data(STRING& text_file, bool isconstant, int data_structure, const lo
 			
 			// Inserts data into doubly linked list
 			if (data_structure == dllist) {
-				dll.insert(data);
+				dll.Insert(data);
 			}
 
 			// Inserts data into array
@@ -31,18 +31,24 @@ int insert_data(STRING& text_file, bool isconstant, int data_structure, const lo
 				arr[count] = data;
 			}
 
-			// Inserts data into hash table
+			// Inserts data into hash table as pair
 			if (data_structure == hashtable) {
-				hash.insert(data);
+				PAIR<float, int> p(data, 1);
+
+				hash.insert(p);
 			}
 
 			// Checks if memory threshold has been exceeded
-			if (determine_total_memory(count, data_structure) > memorydata) {
+			if (determine_total_memory(count, data_structure, 1) > memorydata) {
+				delete [] arr; // deallocates array
+
 				return switch_structure;
 			}
 
 			count++;
 		}
+
+		delete [] arr; // deallocates array
 	}
 
 	// If the file has not opened successfully
@@ -72,14 +78,14 @@ int count_data(STRING& text_file) {
 
 int duplicate_count(std::ifstream &infile){
 	int num,dupes=0,total=0;
-	std::map<int,int> countMap;
+	MAP<int,int> countMap;
 
-	std::pair< std::map<int,int>::iterator,bool > ret;
+	PAIR< MAP<int,int>::iterator,bool > ret;
 
   	// Read input from file and add values to map
   	while(infile >> num){
 		total++;
-    	ret = countMap.insert ( std::pair<char,int>(num,1) );
+    	ret = countMap.insert ( PAIR<char,int>(num,1) );
     	if (ret.second==false) {
       		ret.first->second++;
       		dupes++;
@@ -87,9 +93,9 @@ int duplicate_count(std::ifstream &infile){
   	}
 
   	// Print Values and the number of duplicates/entries
-  	std::cout << "Items Tallied:" << std::endl;
+  	COUT << "Items Tallied:" << ENDL;
   	for (auto const &pair: countMap) {
-		std::cout << pair.first << ": " << pair.second << "\n";
+		COUT << pair.first << ": " << pair.second << "\n";
   	}
   	//std::cout << dupes << " out of " << total << " entries were duplicates.\n";
 
@@ -109,7 +115,7 @@ long unsigned int determine_total_memory(int count, int data_structure, int numb
 	long unsigned int prev = 8;
 	long unsigned int next = 8;
 
-	if(data_structure == hashmap) {
+	if(data_structure == hashtable) {
 		return ((sizeof(key) + sizeof(value))*number_buckets);
 	}
 

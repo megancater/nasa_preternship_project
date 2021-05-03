@@ -18,6 +18,8 @@
 #define STRING std::string
 #define GETLINE std::getline
 #define STOF std::stof
+#define PAIR std::pair
+#define MAP std::map
 
 /* Data structures enumerated list */
 enum Data_Structure { dllist, array, hashtable };
@@ -27,7 +29,7 @@ enum Insert_Exit { success, fail, switch_structure };
 
 
 /* Inserts data from text file stream into specified text file
- * Returns true if data was entered successfully and false if memory threshold is exceeded */
+ * Returns success, failure, or switch status */
 int insert_data(STRING& text_file, bool isconstant, int data_structure, const long unsigned int memorydata);
 
 /* Counts the amount of data in the given text file to determine the array size */
@@ -42,6 +44,6 @@ void checkValid(Array<bool> ValidDSArray);
 long unsigned int determine_total_memory(int count, int data_structure, int number_buckets);
 
 /* Determines the number of duplicates from data in text file */
-int duplicate_count(std::ifstream &infile);
+int duplicate_count(IFSTREAM &infile);
 
 #endif

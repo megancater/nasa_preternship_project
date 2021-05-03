@@ -169,6 +169,13 @@ protected:
 		// Insert into the hash
 		void insert( const std::pair<Key, Value>& insertPair ){
 
+			// Key already in hash
+			if( contains(insertPair.first) ){
+				array[iter].value = array[iter].value + 1;
+				
+				return;
+			}
+
 			// If another insert exceeds half capacity, rehash
 			if( numHash + 1 > array.capacity() / 2 ){
 
