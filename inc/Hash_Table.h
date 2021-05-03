@@ -166,13 +166,19 @@ protected:
 
 		virtual ~HashTable() {}
 
+		int getCapacity() const{
+			return array.capacity();
+		}
+
 		// Insert into the hash
 		void insert( const std::pair<Key, Value>& insertPair ){
 
+			long unsigned int location = findPos( insertPair.first );
+
 			// Key already in hash
 			if( contains(insertPair.first) ){
-				array[iter].value = array[iter].value + 1;
-				
+				array[location].value = array[location].value + 1;
+
 				return;
 			}
 
@@ -186,7 +192,7 @@ protected:
 			++numHash;
 
 			// Get the location
-			long unsigned int location = findPos( insertPair.first );
+
 
 			// Insert the new entry at the current position
 			HashEntry theEntry(insertPair, ACTIVE);

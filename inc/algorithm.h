@@ -10,11 +10,13 @@
 
 #include "DLL.h"
 #include "Hash_Table.h"
+#include "Array.h"
 
 #define IFSTREAM std::ifstream
 #define OSTREAM std::ostream
 #define CIN std::cin
 #define COUT std::cout
+#define ENDL std::endl
 #define STRING std::string
 #define GETLINE std::getline
 #define STOF std::stof
