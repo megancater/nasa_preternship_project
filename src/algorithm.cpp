@@ -20,7 +20,7 @@ int insert_data(STRING& text_file, bool isconstant, int data_structure, const lo
 		while ((isconstant  || (!isconstant && !end_signal)) && GETLINE(input, line)) {
 			// Converts string line of input to float
 			float data = STOF(line);
-			
+
 			// Inserts data into doubly linked list
 			if (data_structure == dllist) {
 				dll.Insert(data);
@@ -39,7 +39,7 @@ int insert_data(STRING& text_file, bool isconstant, int data_structure, const lo
 			}
 
 			// Checks if memory threshold has been exceeded
-			if (determine_total_memory(count, data_structure, 1) > memorydata) {
+			if (determine_total_memory(count, data_structure, hash.getCapacity()) > memorydata) {
 				delete [] arr; // deallocates array
 
 				return switch_structure;
@@ -120,7 +120,7 @@ long unsigned int determine_total_memory(int count, int data_structure, int numb
 	}
 
 	else if(data_structure == dllist) {
-		return (head + tail + (sizeof(float) + prev + next)*count;
+		return head + tail + (sizeof(float) + prev + next)*count;
 	}
 
 	else if(data_structure == array) {
@@ -129,36 +129,35 @@ long unsigned int determine_total_memory(int count, int data_structure, int numb
 }
 
 // Determines the most optimal data structure to switch to from those remaining
-void switch_data_structure(int current_data_structure, unsigned int num_data_structures, int count, const long unsigned int memorydata, bool isConstant, STRING& text_file) {
+void switch_data_structure(int current_data_structure, unsigned int num_data_structures, int count, const long unsigned int memory_data, bool isConstant, STRING& text_file) {
 
 	Array<bool> ValidDS(num_data_structures);         // An array (class) of bools to represent all     the data structures
 
 	ValidDS.fill(true);                               // Initialize all data structures to be intially valid choices
 
-	unsigned int validDS = 0;
+	//unsigned int validDS = 0;
 
-	for( unsigned int i = 0; i < ValidDS.size(); i++ ){       	 // Initial memory check, upper bound of memory
+	for( unsigned int i = 0; i < ValidDS.getSize(); i++ ){       	 // Initial memory check, upper bound of memory
 
 		if( determine_total_memory(count, i) > memory_data ){    // Possibly times a constant? (0.8 * memory_data)
 
 			ValidDS.at(i) = false;
 		}
-  	}
+  }
 
 	if(isConstant == false){
 
 		ValidDS.at(array) = false;
-		checkValid(ValidDs);	  // Check number of data structures we have left and                    					make a decision...	
+		checkValid(ValidDS);	  // Check number of data structures we have left and                    					make a decision...
 	}
 	else{
 
-		ValidDS.at(dll) = false;
-		checkValid(ValidDs);								
+		ValidDS.at(dllist) = false;
+		checkValid(ValidDS);
 	}
 
-// FAILSAFE FOR HAVING MORE THAN ONE LEFT?	
+// FAILSAFE FOR HAVING MORE THAN ONE LEFT?
 
-	return NULL;
 }
 
 void checkValid(Array<bool> ValidDSArray) {
@@ -176,7 +175,7 @@ void checkValid(Array<bool> ValidDSArray) {
 	}
 
 	if(numWins == 1){
-		
+
 		insert_data(text_file, isConstant, optimus, memorydata);
 	}
 	else if(numWins == 0){
@@ -185,4 +184,3 @@ std::cout << "No sufficient replacement, memory usage of unreasonable size." << 
 	}
 
 }
-
