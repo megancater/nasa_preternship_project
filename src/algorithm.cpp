@@ -39,7 +39,7 @@ int insert_data(STRING& text_file, bool isconstant, int data_structure, const lo
 			}
 
 			// Checks if memory threshold has been exceeded
-			if (determine_total_memory(count, data_structure, hash.getCapacity()) > memorydata) {
+			if (determine_total_memory(count, data_structure, (int) hash.getCapacity()) > memorydata) {
 				delete [] arr; // deallocates array
 
 				return switch_structure;
@@ -126,61 +126,51 @@ long unsigned int determine_total_memory(int count, int data_structure, int numb
 	else if(data_structure == array) {
 		return (sizeof(float)*count);
 	}
+	
+		return -1;
 }
 
 // Determines the most optimal data structure to switch to from those remaining
-void switch_data_structure(int current_data_structure, unsigned int num_data_structures, int count, const long unsigned int memory_data, bool isConstant, STRING& text_file) {
+void switch_data_structure(int current_data_structure, unsigned int num_data_structures, const long unsigned int memory_data, bool isConstant, STRING& text_file) {
 
-	Array<bool> ValidDS(num_data_structures);         // An array (class) of bools to represent all     the data structures
+	Array<bool> ValidDS(num_data_structures);         // An array (class) of bools to represent all the data structures
 
 	ValidDS.fill(true);                               // Initialize all data structures to be intially valid choices
 
-	//unsigned int validDS = 0;
-
-	for( unsigned int i = 0; i < ValidDS.getSize(); i++ ){       	 // Initial memory check, upper bound of memory
-
-		if( determine_total_memory(count, i) > memory_data ){    // Possibly times a constant? (0.8 * memory_data)
-
-			ValidDS.at(i) = false;
-		}
-  }
+	ValidDS.at(current_data_structure);
 
 	if(isConstant == false){
 
 		ValidDS.at(array) = false;
-		checkValid(ValidDS);	  // Check number of data structures we have left and                    					make a decision...
 	}
 	else{
-
 		ValidDS.at(dllist) = false;
-		checkValid(ValidDS);
 	}
 
-// FAILSAFE FOR HAVING MORE THAN ONE LEFT?
-
+	checkValid(ValidDS, isConstant, text_file, memory_data);
 }
 
-void checkValid(Array<bool> ValidDSArray) {
+void checkValid(Array<bool> ValidDSArray, bool isConstant, STRING& text_file, const long unsigned int memory_data) {
 
 	int numWins = 0;
 	int optimus = -1;
 
-	for( unsigned int i = 0; i < ValidDSArray.size(); i++ ){
+	for( unsigned int i = 0; i < ValidDSArray.getSize(); i++ ){
 
 		if(ValidDSArray.at(i) == true){
 
-			numWins +=;
+			numWins ++;
 			optimus = i;
 		}
 	}
 
 	if(numWins == 1){
 
-		insert_data(text_file, isConstant, optimus, memorydata);
+		insert_data(text_file, isConstant, optimus, memory_data);
 	}
 	else if(numWins == 0){
 
-std::cout << "No sufficient replacement, memory usage of unreasonable size." << std::endl;
+		std::cout << "No sufficient replacement, memory usage of unreasonable size." << std::endl;
 	}
 
 }

@@ -74,7 +74,7 @@ class Array{
 
         // Method: size()
         // Return the size of the array
-        T& getSize() const{
+        long unsigned int getSize() const{
 
             return size;
         }
