@@ -76,8 +76,9 @@ int count_data(STRING& text_file) {
 	return count;
 }
 
-int duplicate_count(std::ifstream &infile){
-	int num,dupes=0,total=0;
+bool duplicate_check(std::ifstream &infile, const float threshold){
+	int          num, dupes=0;
+	float        total=0;
 	MAP<int,int> countMap;
 
 	PAIR< MAP<int,int>::iterator,bool > ret;
@@ -99,7 +100,7 @@ int duplicate_count(std::ifstream &infile){
   	}
   	//std::cout << dupes << " out of " << total << " entries were duplicates.\n";
 
-	return dupes;
+	return (dupes >= total*threshold);
 }
 
 /* Function to determine the total memory taken up by the data once placed into the designated data structure */
