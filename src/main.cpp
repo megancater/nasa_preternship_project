@@ -18,7 +18,7 @@ int main(int argc, char** argv)
 	bool dll = true;
 	bool hashmap = true;
 	int duplicates;
-	int duplicatethreshold; // = ??
+	int duplicatethreshold;
 
 
 	if(argc < 2 || argc > 2)
@@ -72,7 +72,7 @@ int main(int argc, char** argv)
 			}
 			else if((sort.compare(noupper) == 0) || (sort.compare(nolower) == 0))
 			{
-				duplicates = run_duplicate_check();
+				duplicates = duplicate_check(std::ifstream filename);
 				if(duplicates >= duplicatethreshold)
 				{
 					array = false; // leaves hash map as best choice
@@ -97,7 +97,7 @@ int main(int argc, char** argv)
 		}
 		else if((sort.compare(noupper) == 0) || (sort.compare(nolower) == 0))
 		{
-			duplicates = run_duplicate_check();
+			duplicates = duplicate_check(std::ifstream filename);
 			if(duplicates >= duplicatethreshold)
 			{
 				dll = false; // leaves hash map as best choice
