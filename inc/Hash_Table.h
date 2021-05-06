@@ -166,7 +166,7 @@ protected:
 
 		virtual ~HashTable() {}
 
-		int getCapacity() const{
+		long unsigned int getCapacity() const{
 			return array.capacity();
 		}
 

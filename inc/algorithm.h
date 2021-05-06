@@ -40,12 +40,12 @@ int count_data(STRING& text_file);
 /* Switches to a more optimal data structure */
 void switch_data_structure(int current_data_structure, unsigned int num_data_structures, int count, const unsigned int memorydata, bool isConstant, STRING& txt_File );
 
-void checkValid(Array<bool> ValidDSArray);
+void checkValid(Array<bool> ValidDSArray,STRING& text_file,long unsigned int memory_data, bool isConstant);
 
 /* Determines the overall memory taken up by the data structure with points loaded in */
-long unsigned int determine_total_memory(int count, int data_structure, int number_buckets);
+long unsigned int determine_total_memory(int count, int data_structure, long unsigned int number_buckets);
 
 /* Determines the number of duplicates from data in text file */
-int duplicate_count(IFSTREAM &infile);
+bool duplicate_check(IFSTREAM &infile,const float threshold);
 
 #endif

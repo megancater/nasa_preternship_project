@@ -14,7 +14,7 @@ int insert_data(STRING& text_file, bool isconstant, int data_structure, const lo
 		// Data structure objects
 		DLL<float> dll;
 		float *arr = new float[count_data(text_file)];
-		HashTable<float, int> hash;
+		HashTable<float, int> hash(count_data(text_file));
 
 		// Reads data until EOF is reached or until the end is signalled
 		while ((isconstant  || (!isconstant && !end_signal)) && GETLINE(input, line)) {
@@ -104,7 +104,7 @@ bool duplicate_check(std::ifstream &infile, const float threshold){
 }
 
 /* Function to determine the total memory taken up by the data once placed into the designated data structure */
-long unsigned int determine_total_memory(int count, int data_structure, int number_buckets) {
+long unsigned int determine_total_memory(int count, int data_structure, long unsigned int number_buckets) {
 
 	/* All keys are floats and all values are integers */
 	long unsigned int key = sizeof(float);
@@ -124,13 +124,13 @@ long unsigned int determine_total_memory(int count, int data_structure, int numb
 		return head + tail + (sizeof(float) + prev + next)*count;
 	}
 
-	else if(data_structure == array) {
+	else /*if(data_structure == array) */{ // Changing for now because this would be the only option left
 		return (sizeof(float)*count);
 	}
 }
 
 // Determines the most optimal data structure to switch to from those remaining
-void switch_data_structure(int current_data_structure, unsigned int num_data_structures, int count, const long unsigned int memory_data, bool isConstant, STRING& text_file) {
+void switch_data_structure(/*int current_data_structure, */unsigned int num_data_structures, int count, const long unsigned int memory_data, bool isConstant, STRING& text_file) {
 
 	Array<bool> ValidDS(num_data_structures);         // An array (class) of bools to represent all     the data structures
 
@@ -149,35 +149,34 @@ void switch_data_structure(int current_data_structure, unsigned int num_data_str
 	if(isConstant == false){
 
 		ValidDS.at(array) = false;
-		checkValid(ValidDS);	  // Check number of data structures we have left and                    					make a decision...
+		checkValid(ValidDS,text_file,memory_data,isConstant);	  // Check number of data structures we have left and                    					make a decision...
 	}
 	else{
 
 		ValidDS.at(dllist) = false;
-		checkValid(ValidDS);
+		checkValid(ValidDS,text_file,memory_data,isConstant);
 	}
 
 // FAILSAFE FOR HAVING MORE THAN ONE LEFT?
 
 }
 
-void checkValid(Array<bool> ValidDSArray) {
+void checkValid(Array<bool> ValidDSArray,STRING &text_file,long unsigned int memory_data,bool isConstant) {
 
 	int numWins = 0;
 	int optimus = -1;
 
-	for( unsigned int i = 0; i < ValidDSArray.size(); i++ ){
+	for( unsigned int i = 0; i < ValidDSArray.getSize(); i++ ){
 
 		if(ValidDSArray.at(i) == true){
 
-			numWins +=;
+			numWins ++;
 			optimus = i;
 		}
 	}
 
 	if(numWins == 1){
-
-		insert_data(text_file, isConstant, optimus, memorydata);
+		insert_data(text_file, isConstant, optimus, memory_data);
 	}
 	else if(numWins == 0){
 

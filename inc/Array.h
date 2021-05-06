@@ -1,6 +1,6 @@
 // Author: Drew A. Curtin
 // Email: dcurtin@nd.edu
-// 
+//
 // Pretern Project, Class Array.
 #ifndef ARRAY_H
 #define ARRAY_H
@@ -41,7 +41,7 @@ class Array{
 
         }
 
-        // Assignment Operator 
+        // Assignment Operator
         Array<T>& operator=(Array& rhs){
 
             if(this != &rhs){
@@ -74,7 +74,7 @@ class Array{
 
         // Method: size()
         // Return the size of the array
-        T& getSize() const{
+        unsigned int getSize() const{
 
             return size;
         }
@@ -86,7 +86,7 @@ class Array{
             if (value >= size){
 
                 std::cout << ".at() request is out of bounds..." << std::endl;
-                exit(-1); 
+                exit(-1);
             }
             else{
                 return *(data + value) = value;
