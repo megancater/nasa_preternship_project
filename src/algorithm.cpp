@@ -2,7 +2,7 @@
 
 /* Inserts data from text file stream into specified text file
  * Returns success, failure, or switch status */
-int insert_data(STRING& text_file, bool isconstant, int data_structure, const long unsigned int memorydata) {
+int insert_data(STRING& text_file, bool isconstant, int data_structure, const long int memorydata) {
 	// Opens text file and creates input stream
 	IFSTREAM input (text_file);
 
@@ -39,7 +39,7 @@ int insert_data(STRING& text_file, bool isconstant, int data_structure, const lo
 			}
 
 			// Checks if memory threshold has been exceeded
-			if (determine_total_memory(count, data_structure, (int) hash.getCapacity()) > memorydata) {
+			if (determine_total_memory(count, data_structure, hash.getCapacity()) > (unsigned int) memorydata) {
 				delete [] arr; // deallocates array
 
 				return switch_structure;
