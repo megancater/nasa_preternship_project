@@ -32,7 +32,7 @@ enum Insert_Exit { success, fail, switch_structure };
 
 /* Inserts data from text file stream into specified text file
  * Returns success, failure, or switch status */
-int insert_data(STRING& text_file, bool isconstant, int data_structure, const long unsigned int memorydata);
+int insert_data(STRING& text_file, bool isconstant, int data_structure, const long int memorydata);
 
 /* Counts the amount of data in the given text file to determine the array size */
 int count_data(STRING& text_file);

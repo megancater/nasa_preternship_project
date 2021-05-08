@@ -19,10 +19,8 @@ int main(int argc, char** argv)
 	bool dll = true;
 	bool hashmap = true;
 	bool duplicates;
-	int duplicatethreshold;
-	float userdata;
+	long int userdata;
 	int result;
-	float programdata = 500; //this is a placeholder
 	const float threshold = 0.25;
 	char *filename = argv[1];
 	STRING file = argv[1];
@@ -128,10 +126,7 @@ int main(int argc, char** argv)
 	}
 
 
-	// Memory Usage
-	const long unsigned int  memorydata = userdata - programdata;
-
-	if(memorydata < 0)
+	if(userdata < 0)
 	{
 		COUT << "We are sorry, there is not enough memory. Something must have gone wrong." << ENDL;
 		return 1;
@@ -141,18 +136,32 @@ int main(int argc, char** argv)
 	//Beginning of Algorithm Calls
 	if(array1 == true)
 	{
-		result = insert_data(file,isConstant,array,memorydata);
+		result = insert_data(file,isConstant,array,userdata);
 	}
 	else if(dll == true)
 	{
-		result = insert_data(file,isConstant,dllist,memorydata);
+		result = insert_data(file,isConstant,dllist,userdata);
 	}
-	else
+	else if(hashmap == true)
 	{
-		result = insert_data(file,isConstant,hashtable,memorydata);
+		result = insert_data(file,isConstant,hashtable,userdata);
 	}
 
 	
+	//Output data to user!	
+	if(result == hashtable)
+	{
+		COUT << "Hash Table is the most suitable data structure!" << ENDL;
+	}
+
+	else if(result == dllist)
+	{
+		COUT << "Doubly Linked List is the most suitable data structure!" << ENDL;
+	}
+	else if(result == array)
+	{
+		COUT << "Array is the most suitable data structure!" << ENDL;
+	}
 
 	return 0;
 
