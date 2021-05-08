@@ -39,7 +39,7 @@ int insert_data(STRING& text_file, bool isconstant, int data_structure, const lo
 			}
 
 			// Checks if memory threshold has been exceeded
-			if (determine_total_memory(count, data_structure, hash.getCapacity()) > (unsigned int) memorydata) {
+			if (determine_total_memory(count, data_structure, (int) hash.getCapacity()) > (unsigned int) memorydata) {
 				delete [] arr; // deallocates array
 
 				return switch_structure;
