@@ -46,6 +46,6 @@ void checkValid(Array<bool> ValidDSArray, bool isConstant, STRING& text_file, co
 long unsigned int determine_total_memory(int count, int data_structure, int number_buckets);
 
 /* Determines the number of duplicates from data in text file */
-int duplicate_count(IFSTREAM &infile);
+bool duplicate_check(IFSTREAM &infile,const float threshold);
 
 #endif
