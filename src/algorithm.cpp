@@ -102,7 +102,7 @@ bool duplicate_check(std::ifstream &infile, const float threshold){
   	// Read input from file and add values to map
   	while(infile >> num){
 		total++;
-    	ret = countMap.insert ( PAIR<char,int>(num,1) );
+    	ret = countMap.insert ( PAIR<int,int>(num,1) );
     	if (ret.second==false) {
       		ret.first->second++;
       		dupes++;
@@ -110,11 +110,13 @@ bool duplicate_check(std::ifstream &infile, const float threshold){
   	}
 
   	// Print Values and the number of duplicates/entries
-  	COUT << "Items Tallied:" << ENDL;
+  	/*
+	COUT << "Items Tallied:" << ENDL;
   	for (auto const &pair: countMap) {
 		COUT << pair.first << ": " << pair.second << "\n";
   	}
-  	//std::cout << dupes << " out of " << total << " entries were duplicates.\n";
+	*/
+  	// std::cout << dupes << " out of " << total << " entries were duplicates.\n";
 
 	return (dupes >= total*threshold);
 }
@@ -154,7 +156,7 @@ int switch_data_structure(int current_data_structure, long unsigned int memory_d
 
 	ValidDS.fill(true);                               // Initialize all data structures to be intially valid choices
 
-	ValidDS.at(current_data_structure) = false;
+	ValidDS.at(current_data_structure);
 
 	if(isConstant == false){
 
@@ -187,10 +189,10 @@ int checkValid(Array<bool> ValidDSArray, bool isConstant, STRING& text_file, con
 		insert_data(text_file, isConstant, optimus, memory_data);
 		return optimus;
 	}
-	else{
+	else if(numWins == 0){
 
 		std::cout << "No sufficient replacement, memory usage of unreasonable size." << std::endl;
-		return -1;
 	}
+	return -1;
 
 }
