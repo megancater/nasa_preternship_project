@@ -150,7 +150,7 @@ long unsigned int determine_total_memory(int count, int data_structure, int numb
 // Determines the most optimal data structure to switch to from those remaining
 int switch_data_structure(int current_data_structure, long unsigned int memory_data, bool isConstant, STRING& text_file) {
 
-	Array<bool> ValidDS(num_data_structures);         // An array (class) of bools to represent all the data structures
+	Array<bool> ValidDS(3);        			 // An array (class) of bools to represent all the data structures
 
 	ValidDS.fill(true);                               // Initialize all data structures to be intially valid choices
 
@@ -190,7 +190,7 @@ int checkValid(Array<bool> ValidDSArray, bool isConstant, STRING& text_file, con
 	else if(numWins == 0){
 
 		std::cout << "No sufficient replacement, memory usage of unreasonable size." << std::endl;
-		return -1;
 	}
+	return -1;
 
 }
