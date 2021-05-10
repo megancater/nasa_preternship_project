@@ -156,7 +156,7 @@ int switch_data_structure(int current_data_structure, long unsigned int memory_d
 
 	ValidDS.fill(true);                               // Initialize all data structures to be intially valid choices
 
-	ValidDS.at(current_data_structure);
+	ValidDS.at(current_data_structure) = false;
 
 	if(isConstant == false){
 
@@ -189,10 +189,10 @@ int checkValid(Array<bool> ValidDSArray, bool isConstant, STRING& text_file, con
 		insert_data(text_file, isConstant, optimus, memory_data);
 		return optimus;
 	}
-	else if(numWins == 0){
-
+	else{
 		std::cout << "No sufficient replacement, memory usage of unreasonable size." << std::endl;
+		return -1;
 	}
-	return -1;
+	
 
 }
