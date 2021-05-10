@@ -125,14 +125,6 @@ int main(int argc, char** argv)
 
 	}
 
-
-	if(userdata < 0)
-	{
-		COUT << "We are sorry, there is not enough memory. Something must have gone wrong." << ENDL;
-		return 1;
-	}
-
-
 	//Beginning of Algorithm Calls
 	if(array1 == true)
 	{
