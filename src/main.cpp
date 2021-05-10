@@ -24,6 +24,9 @@ int main(int argc, char** argv)
 	const float threshold = 0.25;
 	char *filename = argv[1];
 	STRING file = argv[1];
+  
+  Array<bool> ValidDS(3);
+  ValidDS.fill(true);
 
 	std::ifstream infile(filename);
 
@@ -128,15 +131,15 @@ int main(int argc, char** argv)
 	//Beginning of Algorithm Calls
 	if(array1 == true)
 	{
-		result = insert_data(file,isConstant,array,userdata);
+		result = insert_data(ValidDS,file,isConstant,array,userdata);
 	}
 	else if(dll == true)
 	{
-		result = insert_data(file,isConstant,dllist,userdata);
+		result = insert_data(ValidDS,file,isConstant,dllist,userdata);
 	}
 	else if(hashmap == true)
 	{
-		result = insert_data(file,isConstant,hashtable,userdata);
+		result = insert_data(ValidDS,file,isConstant,hashtable,userdata);
 	}
 
 	

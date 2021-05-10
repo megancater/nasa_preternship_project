@@ -2,7 +2,7 @@
 
 /* Inserts data from text file stream into specified text file
  * Returns success, failure, or switch status */
-int insert_data(STRING& text_file, bool isconstant, int data_structure, long unsigned int memorydata) {
+int insert_data(Array<bool>& ValidDS,STRING& text_file, bool isconstant, int data_structure, long unsigned int memorydata) {
 
 	// Returns instantly if previous recursive calls returned -1 (error)
 	if (data_structure == -1) {
@@ -57,7 +57,7 @@ int insert_data(STRING& text_file, bool isconstant, int data_structure, long uns
 
 			// Checks if memory threshold has been exceeded
 			if (data_structure != array && (determine_total_memory(count, data_structure, (int) hash.getCapacity()) > memorydata)) {
-				data_structure = switch_data_structure(data_structure, memorydata, isconstant, text_file);
+				data_structure = switch_data_structure(ValidDS,data_structure, memorydata, isconstant, text_file);
 				break;
 			}
 
@@ -150,11 +150,11 @@ long unsigned int determine_total_memory(int count, int data_structure, int numb
 }
 
 // Determines the most optimal data structure to switch to from those remaining
-int switch_data_structure(int current_data_structure, long unsigned int memory_data, bool isConstant, STRING& text_file) {
+int switch_data_structure(Array<bool>& ValidDS, int current_data_structure, long unsigned int memory_data, bool isConstant, STRING& text_file) {
 
-	Array<bool> ValidDS(3);        			 // An array (class) of bools to represent all the data structures
+	//Array<bool> ValidDS(3);        			 // An array (class) of bools to represent all the data structures
 
-	ValidDS.fill(true);                               // Initialize all data structures to be intially valid choices
+	//ValidDS.fill(true);                               // Initialize all data structures to be intially valid choices
 
 	ValidDS.at(current_data_structure) = false;
 
@@ -170,7 +170,7 @@ int switch_data_structure(int current_data_structure, long unsigned int memory_d
 	return answer;
 }
 
-int checkValid(Array<bool> ValidDSArray, bool isConstant, STRING& text_file, const long unsigned int memory_data) {
+int checkValid(Array<bool>& ValidDSArray, bool isConstant, STRING& text_file, const long unsigned int memory_data) {
 
 	int numWins = 0;
 	int optimus = -1;
@@ -186,12 +186,12 @@ int checkValid(Array<bool> ValidDSArray, bool isConstant, STRING& text_file, con
 
 	if(numWins == 1){
 
-		insert_data(text_file, isConstant, optimus, memory_data);
+		insert_data(ValidDSArray,text_file, isConstant, optimus, memory_data);
 		return optimus;
 	}
 	else{
 		std::cout << "No sufficient replacement, memory usage of unreasonable size." << std::endl;
-		return -1;
+		exit(-1);
 	}
 	
 
