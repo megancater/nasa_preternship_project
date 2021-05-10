@@ -3,6 +3,7 @@
 #include <vector>
 #include <cstdlib>
 #include <string>
+#include "../inc/algorithm.h"
 
 
 #define COUT std::cout
@@ -14,11 +15,19 @@
 
 int main(int argc, char** argv)
 {
-	bool array = true;
+	bool array1 = true;
 	bool dll = true;
 	bool hashmap = true;
-	int duplicates;
-	int duplicatethreshold;
+	bool duplicates;
+	long int userdata;
+	int result;
+	const float threshold = 0.25;
+	char *filename = argv[1];
+	STRING file = argv[1];
+
+	std::ifstream infile(filename);
+
+	bool isConstant = false;
 
 
 	if(argc < 2 || argc > 2)
@@ -46,12 +55,18 @@ int main(int argc, char** argv)
 
 
 	// Questions
+	
+	// Determine memory allowed
+	COUT << "How much memory does your environment allow? ";
+	CIN >> userdata;
+
 
 	COUT << "Is your data set constant? (Will your number of data points stay the same?) " ;
 	CIN >> constant;
 
 	if((constant.compare(yesupper) == 0) || (constant.compare(yeslower) == 0))
 	{
+		isConstant = true;
 		dll = false;
 
 		COUT << "Is direct access to your data needed? ";
@@ -72,12 +87,12 @@ int main(int argc, char** argv)
 			}
 			else if((sort.compare(noupper) == 0) || (sort.compare(nolower) == 0))
 			{
-				duplicates = duplicate_check(std::ifstream filename);
-				if(duplicates >= duplicatethreshold)
+				duplicates = duplicate_check(infile,threshold);
+				if(duplicates == true)
 				{
-					array = false; // leaves hash map as best choice
+					array1 = false; // leaves hash map as best choice
 				}
-				else if(duplicates < duplicatethreshold)
+				else if(duplicates == false)
 				{
 					hashmap = false; // leaves array as best choice
 				}
@@ -86,7 +101,7 @@ int main(int argc, char** argv)
 	}
 	else if((constant.compare(noupper) == 0) || (constant.compare(nolower) == 0))
 	{
-		array = false;
+		array1 = false;
 
 		COUT << "Does your data need to stay in order? ";
 		CIN >> sort;
@@ -97,17 +112,55 @@ int main(int argc, char** argv)
 		}
 		else if((sort.compare(noupper) == 0) || (sort.compare(nolower) == 0))
 		{
-			duplicates = duplicate_check(std::ifstream filename);
-			if(duplicates >= duplicatethreshold)
+			duplicates = duplicate_check(infile,threshold);
+			if(duplicates == true)
 			{
 				dll = false; // leaves hash map as best choice
 			}
-			else if(duplicates < duplicatethreshold)
+			else if(duplicates == false)
 			{
 				hashmap = false; // leaves dll as best choice
 			}
 		}
 
+	}
+
+
+	if(userdata < 0)
+	{
+		COUT << "We are sorry, there is not enough memory. Something must have gone wrong." << ENDL;
+		return 1;
+	}
+
+
+	//Beginning of Algorithm Calls
+	if(array1 == true)
+	{
+		result = insert_data(file,isConstant,array,userdata);
+	}
+	else if(dll == true)
+	{
+		result = insert_data(file,isConstant,dllist,userdata);
+	}
+	else if(hashmap == true)
+	{
+		result = insert_data(file,isConstant,hashtable,userdata);
+	}
+
+	
+	//Output data to user!	
+	if(result == hashtable)
+	{
+		COUT << "Hash Table is the most suitable data structure!" << ENDL;
+	}
+
+	else if(result == dllist)
+	{
+		COUT << "Doubly Linked List is the most suitable data structure!" << ENDL;
+	}
+	else if(result == array)
+	{
+		COUT << "Array is the most suitable data structure!" << ENDL;
 	}
 
 	return 0;

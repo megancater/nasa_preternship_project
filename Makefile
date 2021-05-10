@@ -78,3 +78,15 @@ algorithm_test_objs := $(OBJ)/algorithm.o
 # Executable
 algorithm_test: $(algorithm_test_objs)
 	$(PP) $(CXXFLAGS) -o $(EXE)/algorithm_test $(algorithm_test_objs)
+	
+# Command: make main_test
+# Initial Main
+$(OBJ)/main.o: $(SRC)/main.cpp
+	$(PP) $(CXXFLAGS) -c $(SRC)/main.cpp -o $@
+	
+# Object List
+main_test_objs := $(OBJ)/main.o $(OBJ)/algorithm.o 
+
+# Executable
+main_test: $(main_test_objs)
+	$(PP) $(CXXFLAGS) -o $(EXE)/main_test $(main_test_objs)

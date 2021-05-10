@@ -32,7 +32,7 @@ enum Insert_Exit { success, fail, switch_structure };
 
 /* Inserts data from text file stream into specified text file
  * Returns success, failure, or switch status */
-int insert_data(STRING& text_file, bool isconstant, int data_structure, const long unsigned int memorydata);
+int insert_data(STRING& text_file, bool isconstant, int data_structure, const long int memorydata);
 
 /* Counts the amount of data in the given text file to determine the array size */
 int count_data(STRING& text_file);
@@ -46,6 +46,6 @@ void checkValid(Array<bool> ValidDSArray, bool isConstant, STRING& text_file, co
 long unsigned int determine_total_memory(int count, int data_structure, int number_buckets);
 
 /* Determines the number of duplicates from data in text file */
-int duplicate_count(IFSTREAM &infile);
+bool duplicate_check(IFSTREAM &infile,const float threshold);
 
 #endif

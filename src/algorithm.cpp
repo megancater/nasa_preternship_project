@@ -3,17 +3,13 @@
 /* Inserts data from text file stream into specified text file
  * Returns success, failure, or switch status */
 int insert_data(STRING& text_file, bool isconstant, int data_structure, long int memorydata) {
-/* TODO:
- * Add messages of switching (inside switch function)
- * Switch func needs to call insert_data and then return data structure value
- */
 
 	// Returns instantly if previous recursive calls returned -1 (error)
 	if (data_structure == -1) {
 		return data_structure;
 	}
 
-	// Opens text file and creates input stream
+  // Opens text file and creates input stream
 	IFSTREAM input (text_file);
 
 	// Checks that the file has opened successfully before entering data
@@ -60,7 +56,7 @@ int insert_data(STRING& text_file, bool isconstant, int data_structure, long int
 			}
 
 			// Checks if memory threshold has been exceeded
-			if (data_structure != array && determine_total_memory(count, data_structure, (int) hash.getCapacity()) > memorydata) {
+			if (data_structure != array && (determine_total_memory(count, data_structure, (int) hash.getCapacity()) > memorydata)) {
 				data_structure = switch_data_structure(data_structure, memorydata, isconstant, text_file);
 				break;
 			}
