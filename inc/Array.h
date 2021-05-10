@@ -89,7 +89,7 @@ class Array{
                 exit(-1); 
             }
             else{
-                return *(data + value) = value;
+                return data[value];
             }
         }
 
