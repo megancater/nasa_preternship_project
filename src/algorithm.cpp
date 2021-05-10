@@ -2,7 +2,7 @@
 
 /* Inserts data from text file stream into specified text file
  * Returns success, failure, or switch status */
-int insert_data(STRING& text_file, bool isconstant, int data_structure, long int memorydata) {
+int insert_data(STRING& text_file, bool isconstant, int data_structure, long unsigned int memorydata) {
 
 	// Returns instantly if previous recursive calls returned -1 (error)
 	if (data_structure == -1) {
@@ -148,7 +148,7 @@ long unsigned int determine_total_memory(int count, int data_structure, int numb
 }
 
 // Determines the most optimal data structure to switch to from those remaining
-void switch_data_structure(int current_data_structure, unsigned int num_data_structures, const long unsigned int memory_data, bool isConstant, STRING& text_file) {
+void switch_data_structure(int current_data_structure, long unsigned int memory_data, bool isConstant, STRING& text_file) {
 
 	Array<bool> ValidDS(num_data_structures);         // An array (class) of bools to represent all the data structures
 
