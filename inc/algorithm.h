@@ -38,9 +38,9 @@ int insert_data(STRING& text_file, bool isconstant, int data_structure, const lo
 int count_data(STRING& text_file);
 
 /* Switches to a more optimal data structure */
-void switch_data_structure(int current_data_structure, unsigned int num_data_structures, const unsigned int memorydata, bool isConstant, STRING& txt_File );
+int switch_data_structure(int current_data_structure, unsigned int num_data_structures, const unsigned int memorydata, bool isConstant, STRING& txt_File );
 
-void checkValid(Array<bool> ValidDSArray, bool isConstant, STRING& text_file, const long unsigned int memory_data);
+int checkValid(Array<bool> ValidDSArray, bool isConstant, STRING& text_file, const long unsigned int memory_data);
 
 /* Determines the overall memory taken up by the data structure with points loaded in */
 long unsigned int determine_total_memory(int count, int data_structure, int number_buckets);
