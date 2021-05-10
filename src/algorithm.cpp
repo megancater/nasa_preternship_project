@@ -2,7 +2,17 @@
 
 /* Inserts data from text file stream into specified text file
  * Returns success, failure, or switch status */
-int insert_data(STRING& text_file, bool isconstant, int data_structure, const long unsigned int memorydata) {
+int insert_data(STRING& text_file, bool isconstant, int data_structure, long int memorydata) {
+/* TODO:
+ * Add messages of switching (inside switch function)
+ * Switch func needs to call insert_data and then return data structure value
+ */
+
+	// Returns instantly if previous recursive calls returned -1 (error)
+	if (data_structure == -1) {
+		return data_structure;
+	}
+
 	// Opens text file and creates input stream
 	IFSTREAM input (text_file);
 
@@ -16,8 +26,19 @@ int insert_data(STRING& text_file, bool isconstant, int data_structure, const lo
 		float *arr = new float[count_data(text_file)];
 		HashTable<float, int> hash;
 
+		// Prints message of insertion
+		if (data_structure == dllist) {
+			COUT << "Inserting data into doubly linked list..." << ENDL;
+		}
+		else if (data_structure == array) {
+			COUT << "Inserting data into array..." << ENDL;
+		}
+		else {
+			COUT << "Inserting data into hash table..." << ENDL;
+		}
+
 		// Reads data until EOF is reached or until the end is signalled
-		while ((isconstant  || (!isconstant && !end_signal)) && GETLINE(input, line)) {
+		while (GETLINE(input, line)) {
 			// Converts string line of input to float
 			float data = STOF(line);
 
@@ -27,22 +48,21 @@ int insert_data(STRING& text_file, bool isconstant, int data_structure, const lo
 			}
 
 			// Inserts data into array
-			if (data_structure == array) {
+			else if (data_structure == array) {
 				arr[count] = data;
 			}
 
 			// Inserts data into hash table as pair
-			if (data_structure == hashtable) {
+			else {
 				PAIR<float, int> p(data, 1);
 
 				hash.insert(p);
 			}
 
 			// Checks if memory threshold has been exceeded
-			if (determine_total_memory(count, data_structure, (int) hash.getCapacity()) > memorydata) {
-				delete [] arr; // deallocates array
-
-				return switch_structure;
+			if (data_structure != array && determine_total_memory(count, data_structure, (int) hash.getCapacity()) > memorydata) {
+				data_structure = switch_data_structure(data_structure, memorydata, isconstant, text_file);
+				break;
 			}
 
 			count++;
@@ -53,11 +73,11 @@ int insert_data(STRING& text_file, bool isconstant, int data_structure, const lo
 
 	// If the file has not opened successfully
 	else {
-		return fail;
+		return -1;
 	}
 
 	// Data has been inserted successfully
-	return success;
+	return data_structure;
 }
 
 /* Counts the amount of data in the given text file to determine the array size */
