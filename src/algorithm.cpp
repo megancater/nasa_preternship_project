@@ -9,18 +9,26 @@ int insert_data(Array<bool>& ValidDS,STRING& text_file, bool isconstant, int dat
 		return data_structure;
 	}
 
+  // Data structure objects
+	int i;
+	int elements = count_data(text_file);
+  HashTable<float, int> hash(elements/5);
+  float *arr = new float[elements];
+	for(i=0;i<elements;i++) arr[i] = 0.0;
+  DLL<float> dll;
+
   // Opens text file and creates input stream
 	IFSTREAM input (text_file);
 
 	// Checks that the file has opened successfully before entering data
 	if (input.is_open()) {
+
 		STRING line;
 		int count = 0;
 
 		// Data structure objects
-		DLL<float> dll;
-		float *arr = new float[count_data(text_file)];
-		HashTable<float, int> hash;
+		//DLL<float> dll;
+    // TO REVERT: Move hash and arr back here
 
 		// Prints message of insertion
 		if (data_structure == dllist) {
@@ -45,13 +53,12 @@ int insert_data(Array<bool>& ValidDS,STRING& text_file, bool isconstant, int dat
 
 			// Inserts data into array
 			else if (data_structure == array) {
-				arr[count] = data;
+        arr[count] = data;
 			}
 
 			// Inserts data into hash table as pair
 			else {
 				PAIR<float, int> p(data, 1);
-
 				hash.insert(p);
 			}
 
@@ -72,8 +79,27 @@ int insert_data(Array<bool>& ValidDS,STRING& text_file, bool isconstant, int dat
 		return -1;
 	}
 
-	// Data has been inserted successfully
-	return data_structure;
+  if(data_structure == hashtable){
+    COUT << hash << ENDL;
+  }else if(data_structure == array){
+		int c = 0;
+		for(i=0;i<elements;i++){
+			c++;
+			COUT << "# " << std::setw(4) << i << ": " << std::setw(4) << (int)arr[i] << " ";
+				if(c==5){
+					c = 0;
+					COUT << " #" << ENDL;
+				}
+		}
+		if (c != 0) COUT << "#";
+		COUT << ENDL;
+  }else if(data_structure == dllist){
+    COUT << dll << ENDL;
+  }
+
+  // Data has been inserted successfully
+
+  return data_structure;
 }
 
 /* Counts the amount of data in the given text file to determine the array size */
@@ -145,7 +171,7 @@ long unsigned int determine_total_memory(int count, int data_structure, int numb
 	else if(data_structure == array) {
 		return (sizeof(float)*count);
 	}
-	
+
 		return -1;
 }
 
@@ -193,6 +219,6 @@ int checkValid(Array<bool>& ValidDSArray, bool isConstant, STRING& text_file, co
 		std::cout << "No sufficient replacement, memory usage of unreasonable size." << std::endl;
 		exit(-1);
 	}
-	
+
 
 }
