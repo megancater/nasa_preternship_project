@@ -16,6 +16,7 @@ int insert_data(Array<bool>& ValidDS,STRING& text_file, bool isconstant, int dat
   float *arr = new float[elements];
 	for(i=0;i<elements;i++) arr[i] = 0.0;
   DLL<float> dll;
+  int old_structure=data_structure;
 
   // Opens text file and creates input stream
 	IFSTREAM input (text_file);
@@ -63,7 +64,7 @@ int insert_data(Array<bool>& ValidDS,STRING& text_file, bool isconstant, int dat
 			}
 
 			// Checks if memory threshold has been exceeded
-			if (data_structure != array && (determine_total_memory(count, data_structure, (int) hash.getCapacity()) > memorydata)) {
+      if (data_structure != array && (determine_total_memory(count, data_structure, (int) hash.getCapacity()) > memorydata)) {
 				data_structure = switch_data_structure(ValidDS,data_structure, memorydata, isconstant, text_file);
 				break;
 			}
@@ -79,6 +80,7 @@ int insert_data(Array<bool>& ValidDS,STRING& text_file, bool isconstant, int dat
 		return -1;
 	}
 
+  if(old_structure == data_structure){
   if(data_structure == hashtable){
     COUT << hash << ENDL;
   }else if(data_structure == array){
@@ -95,6 +97,7 @@ int insert_data(Array<bool>& ValidDS,STRING& text_file, bool isconstant, int dat
 		COUT << ENDL;
   }else if(data_structure == dllist){
     COUT << dll << ENDL;
+  }
   }
 
   // Data has been inserted successfully
