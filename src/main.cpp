@@ -147,7 +147,7 @@ int main(int argc, char** argv)
 	if(result == hashtable)
 	{
 		COUT << "Hash Table is the most suitable data structure!" << ENDL;
-	}
+  }
 
 	else if(result == dllist)
 	{

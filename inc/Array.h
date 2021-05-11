@@ -8,6 +8,7 @@
 // Libraries Included
 #include <cstdlib>
 #include <iostream>
+#include <iomanip>
 
 template< class T >
 class Array{
@@ -111,11 +112,12 @@ class Array{
 
         // Friend Operator
         friend std::ostream& operator<<(std::ostream& output, Array& theArray){
-
             for( unsigned int i = 0; i < theArray.size; i++){
+            
+            output << theArray[i] << " ";
 
-                output << theArray[i] << " ";
             }
+
 
             output << std::endl;
 

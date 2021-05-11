@@ -2,6 +2,7 @@
 #define LINEARPROBE_H
 
 #include <iostream>
+#include <iomanip>    // Output Formatting
 #include <vector>
 #include <string>
 #include <stdexcept>	// Added for Exception
@@ -276,14 +277,15 @@ protected:
 
 			output << "Hash Table Size: " << theTable.array.size() << std::endl;
 			output << "Hashed Elements: " << theTable.numHash << std::endl;
+      output << "#############################" << std::endl;
+			output << "# INDEX  STATUS   KEY VALUE #" << std::endl;
+      for(unsigned int iter = 0; iter < theTable.array.size(); iter++){
 
-			for(unsigned int iter = 0; iter < theTable.array.size(); iter++){
-
-				output << "{" << iter << ": ";
+				output << "# " << std::setw(4) << iter << ": ";
 
 				if( theTable.array[iter].state == ACTIVE ){
 
-					output << "ACTIVE, ";
+					output << " ACTIVE, ";
 
 				}
 				else if( theTable.array[iter].state == DELETED ){
@@ -293,14 +295,15 @@ protected:
 				}
 				else{
 
-					output << "EMPTY, ";
+					output << "  EMPTY, ";
 				}
 
-				output << theTable.array[iter].key << ", ";
+				output << std::setw(4) << theTable.array[iter].key << ", ";
 
-				output << theTable.array[iter].value << "}" << std::endl;
+				output << std::setw(4) << theTable.array[iter].value << " #" << std::endl;
 
 			}
+      output << "#############################" << std::endl;
 
 			return output;
 		}

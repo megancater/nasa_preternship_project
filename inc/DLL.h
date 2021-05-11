@@ -8,6 +8,7 @@
 // Libraries Included
 #include <cstdlib>
 #include <iostream>
+#include <cmath>
 #include "../inc/DLLNode.h"
 
 template< class T >
@@ -232,7 +233,8 @@ class DLL{
 
     // Friend Operator: DLL Overloaded Ostream
     friend std::ostream& operator<<(std::ostream& output, const DLL<T>& theDLL){
-
+        
+        int i,dashes = 0;
         DLLNode<T>* curr;
 
         if( theDLL.IsEmpty() ){
@@ -241,10 +243,28 @@ class DLL{
         else{
 
             curr = theDLL.head;
-
+            dashes += 6;
+            output << "HEAD: ";
+            // output << "(" << dashes << ")";
             while(curr != NULL){
 
-                output << curr->data << " ";
+                output << (int)curr->data;
+                dashes += (int)(log10(curr->data)+1);
+                // output << "(" << dashes << ")";
+                if(dashes  < 70){
+                  if (curr->next != NULL) output << " -> ";
+                  dashes += 4;
+                  // output << "(" << dashes << ")";
+                }
+                else if (curr->next != NULL){
+                 dashes -= 3;
+                 output << std::endl << "  ";
+                 for(i=0;i<dashes;i++) output << " ";
+                 output << "|" << std::endl << " V";
+                 for(i=0;i<dashes;i++) output << "-";
+                 output << std::endl;
+                 dashes = 0;
+                }
 
                 curr = curr->next;
             }
