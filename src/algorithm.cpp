@@ -64,7 +64,7 @@ int insert_data(Array<bool>& ValidDS,STRING& text_file, bool isconstant, int dat
 			}
 
 			// Checks if memory threshold has been exceeded
-      if (data_structure != array && (determine_total_memory(count, data_structure, (int) hash.getCapacity()) > memorydata)) {
+      if (determine_total_memory(count, data_structure, (int) hash.getCapacity()) > memorydata) {
 				data_structure = switch_data_structure(ValidDS,data_structure, memorydata, isconstant, text_file);
 				break;
 			}
