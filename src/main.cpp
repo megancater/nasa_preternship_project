@@ -13,8 +13,10 @@
 #define CIN std::cin
 #define STRING std::string
 
+// Command line input contains the name of this program and the name of the text file containing the data
 int main(int argc, char** argv)
 {
+	// Initialize all variable values
 	bool array1 = true;
 	bool dll = true;
 	bool hashmap = true;
@@ -25,14 +27,14 @@ int main(int argc, char** argv)
 	char *filename = argv[1];
 	STRING file = argv[1];
   
-  Array<bool> ValidDS(3);
-  ValidDS.fill(true);
+	Array<bool> ValidDS(3);
+  	ValidDS.fill(true);
 
 	std::ifstream infile(filename);
 
 	bool isConstant = false;
 
-
+	// Checks to ensure the user inputted the correct number of inputs
 	if(argc < 2 || argc > 2)
 	{
 		COUT << "Incorrect number of inputs." << ENDL;
@@ -45,8 +47,8 @@ int main(int argc, char** argv)
 	COUT << "" << ENDL;
 	COUT << "Before we choose the best data structure for your data, we have a few questions." << ENDL;
 	COUT << "Answers with Y for yes or N for no." << ENDL;
-	// are we going to assume the user uses valid input?
 
+	// These values help to avoid errors being thrown, even though ther user is asked to put "Y" or "N", we also accomodate for "y" or "n"
 	STRING yesupper = "Y";
 	STRING yeslower = "y";
 	STRING noupper = "N";
@@ -128,7 +130,7 @@ int main(int argc, char** argv)
 
 	}
 
-	//Beginning of Algorithm Calls
+	// Beginning of Algorithm Calls
 	if(array1 == true)
 	{
 		result = insert_data(ValidDS,file,isConstant,array,userdata);
@@ -143,11 +145,12 @@ int main(int argc, char** argv)
 	}
 
 	
-	//Output data to user!	
+	// Output data to user!
+	// The name is stated as well as a visual display of the code
 	if(result == hashtable)
 	{
 		COUT << "Hash Table is the most suitable data structure!" << ENDL;
-  }
+  	}
 
 	else if(result == dllist)
 	{
